@@ -12,7 +12,8 @@ CREATE TABLE time_tracker.task_detail (
 	started_at DATETIME NOT NULL,
 	stopped_at DATETIME NULL,
 	task varchar(36) NOT NULL,
-	CONSTRAINT task_detail_FK FOREIGN KEY (id) REFERENCES time_tracker.task(id)
+    UNIQUE INDEX idx (id), PRIMARY KEY(id),
+	CONSTRAINT task_detail_FK FOREIGN KEY (task) REFERENCES time_tracker.task(id)
 )
 ENGINE=InnoDB
 DEFAULT CHARSET=utf8

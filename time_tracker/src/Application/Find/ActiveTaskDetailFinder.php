@@ -1,13 +1,13 @@
 <?php
 
 
-namespace App\Application\Create;
+namespace App\Application\Find;
 
 
 use App\Domain\TaskDetail;
 use App\Domain\TaskDetailRepository;
 
-class TaskDetailCreator
+class ActiveTaskDetailFinder
 {
     private $repository;
 
@@ -18,12 +18,10 @@ class TaskDetailCreator
         $this->repository = $repository;
     }
 
-    public function __invoke(
-        string $name,
-        ?string $taskId
-    )
+    public function __invoke
+    (): ?TaskDetail
     {
-        $this->repository->save(TaskDetail::create($name, $taskId));
+        return $this->repository->findActive();
     }
 
 }

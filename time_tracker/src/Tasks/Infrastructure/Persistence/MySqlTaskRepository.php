@@ -27,4 +27,11 @@ final class MySqlTaskRepository extends DoctrineRepository implements TaskReposi
     {
         //TODO implement update¿?
     }
+
+    public function findSameName(string $taskName)
+    {
+        return $this->repository(Task::class)->findOneBy([
+            'name' => $taskName
+        ]);
+    }
 }

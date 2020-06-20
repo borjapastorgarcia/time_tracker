@@ -1,6 +1,34 @@
 {% extends 'layout/_main.html.twig' %}
 
-{% block body  %}
+{% block body %}
+    <div class="row">
+        {% if activeTask is defined and activeTask is not null %}
+            Current task: {{ activeTask.name }}
+
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <td>Task</td>
+                    <td>Time</td>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>{{ activeTask.name }}</td>
+                    {#                      TODO DO HERE TIME DIFF  #}
+                    <td id="timer-start-date">{{ activeTask.startedAt | date("d/m/Y H:i:s") }}</td>
+                </tr>
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
     {{ form_start(form) }}
     {{ form_widget(form) }}
+    <script>
+        $(document).ready(function () {
+            var start = $(this).find("#timer-start-date").html().toString();
+// TODO make date differences
+        });
+    </script>
 {% endblock %}

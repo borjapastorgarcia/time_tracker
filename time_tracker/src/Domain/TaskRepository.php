@@ -10,4 +10,6 @@ interface TaskRepository
 
     public function save(Task $task);
 
+    public function findSameName(string $taskName);
+
 }

@@ -9,7 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 
-final class Task
+class Task
 {
     private $id;
     private $name;
@@ -27,7 +27,6 @@ final class Task
     }
 
     public static function create(
-        ?string $id,
         string $name
     ): self
     {
