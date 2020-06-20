@@ -1,0 +1,11 @@
+create:
+    path: /
+    controller: App\Controller\Task\CreateTaskController::index
+
+update:
+    path: /
+    controller: App\Controller\Task\UpdateTaskController::index
+
+list:
+    path: /list
+    controller: App\Controller\Task\ListAllTasksController::index

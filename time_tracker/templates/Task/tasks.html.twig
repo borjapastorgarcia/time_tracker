@@ -1,0 +1,29 @@
+{% extends 'layout/_main.html.twig' %}
+
+{% block body %}
+    <div>
+{#                {{ dump(tasks) }}#}
+        {% if tasks is defined and tasks is not null %}
+            <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <td>Task</td>
+                    <td>Day</td>
+{#                    <td>Total Time</td>#}
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for task in tasks %}
+                    {#{{ dump(task.name) }}#}
+                    <tr>
+                        <td>{{task.name}}</td>
+{#                        <td>{{task.createdAt|date('Y-m-d H:i:s')}}</td>#}
+                        <td>#total</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% endblock %}
