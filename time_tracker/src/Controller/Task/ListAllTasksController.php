@@ -14,6 +14,8 @@ class ListAllTasksController extends AbstractController
     public function index(
         MySqlTaskRepository $mySqlTaskRepository
     ){
+
+        //TODO REFACTOR TO SEARCHER
         $this->mySqlTaskRepository = $mySqlTaskRepository;
 
         $tasks = $this->mySqlTaskRepository->searchAll();
@@ -21,7 +23,6 @@ class ListAllTasksController extends AbstractController
         return $this->render(
             'Task/tasks.html.twig',
             [
-                'activeElement' => 'index',
                 'tasks' => $tasks
             ]
         );

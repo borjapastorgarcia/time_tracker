@@ -7,7 +7,7 @@
     <entity name="App\Domain\Task" table="task">
         <id name="id" type="string" column="id" length="36" />
         <field name="name" type="string" column="name" length="255" nullable="true"/>
-        <one-to-many field="taskDetails" target-entity="TaskDetail" mapped-by="task" />
+        <one-to-many field="taskDetails" target-entity="App\Domain\TaskDetail" mapped-by="task" />
         <unique-constraints>
             <unique-constraint columns="id" name="idx" />
         </unique-constraints>

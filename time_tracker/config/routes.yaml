@@ -6,6 +6,10 @@ update:
     path: /
     controller: App\Controller\Task\UpdateTaskController::index
 
+stop:
+    path: /stop/{taskDetailId}
+    controller: App\Controller\Task\StopTaskController::index
+
 list:
     path: /list
     controller: App\Controller\Task\ListAllTasksController::index

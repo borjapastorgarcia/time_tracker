@@ -10,7 +10,13 @@
         <field name="status" type="boolean" column="status"/>
         <field name="startedAt" type="datetime" column="started_at" length="255"/>
         <field name="stoppedAt" type="datetime" column="stopped_at" length="255" nullable="true"/>
-        <field name="task" type="string" column="task_id" length="36" nullable="true"/>
+        <field name="elapsedTime" type="string" column="elapsed_time" length="255" nullable="true"/>
+        <many-to-one
+                field="task"
+                target-entity="App\Domain\Task"
+                inversed-by="taskDetails">
+            <join-column nullable="false"/>
+        </many-to-one>
         <unique-constraints>
             <unique-constraint columns="id" name="idx" />
         </unique-constraints>

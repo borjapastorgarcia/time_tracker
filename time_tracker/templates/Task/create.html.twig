@@ -10,14 +10,17 @@
                 <tr>
                     <td>Task</td>
                     <td>Time</td>
+                    <td>Actions</td>
 
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <td>{{ activeTask.name }}</td>
-                    {#                      TODO DO HERE TIME DIFF  #}
-                    <td id="timer-start-date">{{ activeTask.startedAt | date("d/m/Y H:i:s") }}</td>
+                    <td>{{ activeTask.startedAt | date("d/m/Y H:i:s") }}</td>
+                    <td><span id="timer-start-date">{{ elapsedTime }}</span>
+                        <a href="{{ path('stop', { 'taskDetailId': activeTask.id }) }}" class="btn btn-default">Stop</a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -28,7 +31,38 @@
     <script>
         $(document).ready(function () {
             var start = $(this).find("#timer-start-date").html().toString();
-// TODO make date differences
+            console.log(start);
+            var hours = parseInt(start.split(":")[0]);
+            var minutes = parseInt(start.split(":")[1]);
+            var seconds = parseInt(start.split(":")[2]);
+
+            var x = setInterval(function () {
+
+
+                seconds = parseInt(seconds);
+                seconds += 1;
+                if (seconds == 60) {
+                    minutes = parseInt(minutes);
+                    minutes += 1;
+                    seconds = 0;
+                }
+                if (minutes == 60) {
+                    hours = parseInt(hours);
+                    hours += 1;
+                    minutes = 0;
+                }
+                if (minutes.toString().length < 2) {
+                    minutes = "0" + minutes.toString();
+                }
+                if (hours.toString().length < 2) {
+                    hours = "0" + hours.toString();
+                }
+                if (seconds.toString().length < 2) {
+                    seconds = "0" + seconds.toString();
+                }
+                document.getElementById("timer-start-date").innerHTML = hours + ":" + minutes + ":" + seconds + "";
+            }, 1000);
+
         });
     </script>
 {% endblock %}
