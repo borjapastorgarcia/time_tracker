@@ -14,13 +14,15 @@ final class TaskDetail
     private $status;
     private $startedAt;
     private $stoppedAt;
+    private $task;
 
     public function __construct(
         ?string $id,
         string $name,
         bool $status,
         \DateTime $startedAt,
-        \DateTime $stoppedAt
+        ?\DateTime $stoppedAt,
+        string $task
     )
     {
         $this->id = $id;
@@ -28,25 +30,24 @@ final class TaskDetail
         $this->status = $status;
         $this->startedAt = $startedAt;
         $this->stoppedAt = $stoppedAt;
+        $this->task = $task;
     }
 
     public static function create(
-        ?string $id,
         string $name,
-        bool $status,
-        \DateTime $startedAt,
-        \DateTime $stoppedAt
+        string $task
     ): self
     {
 
-        $task = new self(
+        $taskDetail = new self(
             RamseyUuid::uuid4()->toString(),
             $name,
-            $status,
-            $startedAt,
-            $stoppedAt
+            true,
+            new \DateTime(),
+            null,
+            $task
         );
-        return $task;
+        return $taskDetail;
     }
 
     public function id(): string
@@ -57,6 +58,17 @@ final class TaskDetail
     public function name(): string
     {
         return $this->name;
+    }
+
+    public function startedAt(): \DateTime
+    {
+        return $this->startedAt;
+    }
+
+    public function stop(): void
+    {
+        $this->stoppedAt = new \DateTime();
+        $this->status = false;
     }
 
 }

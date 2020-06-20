@@ -19,12 +19,10 @@ class TaskCreator
     }
 
     public function __invoke(
-        ?int $taskId,
         string $name
     )
     {
-        //TODO define if create a task or taskDetail
-        $task = Task::create($taskId, $name);
+        $task = Task::create($name);
         $this->repository->save($task);
     }
 

@@ -1,13 +1,13 @@
 <?php
 
 
-namespace App\Application\Stop;
+namespace App\Application\Find;
 
 
 use App\Domain\Task;
 use App\Domain\TaskRepository;
 
-class TaskStopper
+class SameNameTaskFinder
 {
     private $repository;
 
@@ -18,14 +18,12 @@ class TaskStopper
         $this->repository = $repository;
     }
 
-    public function __invoke(
-        ?int $taskId,
+    public function __invoke
+    (
         string $name
-    )
+    ):?Task
     {
-        //TODO stop taskDetail
-        $task = Task::create($taskId, $name);
-        $this->repository->save($task);
+        return $this->repository->findSameName($name);
     }
 
 }
