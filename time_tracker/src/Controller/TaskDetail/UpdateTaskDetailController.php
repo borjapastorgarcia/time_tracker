@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Controller\Task;
+namespace App\Controller\TaskDetail;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

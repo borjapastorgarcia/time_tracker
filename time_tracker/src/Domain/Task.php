@@ -16,14 +16,13 @@ class Task
     private $taskDetails;
 
     public function __construct(
-        ?string $id,
-        string $name,
-        Collection $taskDetails
+        string $id,
+        string $name
     )
     {
         $this->id = $id;
         $this->name = $name;
-        $this->taskDetails = $taskDetails;
+        $this->taskDetails = new ArrayCollection();
     }
 
     public static function create(
@@ -33,8 +32,7 @@ class Task
 
         $task = new self(
             RamseyUuid::uuid4()->toString(),
-            $name,
-            new ArrayCollection()
+            $name
         );
         return $task;
     }
@@ -48,5 +46,23 @@ class Task
     {
         return $this->name;
     }
+
+    /**
+     * @return Collection
+     */
+    public function getTaskDetails(): Collection
+    {
+        return $this->taskDetails;
+    }
+
+    /**
+     * @param ArrayCollection $taskDetails
+     */
+    public function setTaskDetails(ArrayCollection $taskDetails): void
+    {
+        $this->taskDetails = $taskDetails;
+    }
+
+
 
 }

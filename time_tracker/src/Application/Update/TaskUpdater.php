@@ -19,15 +19,10 @@ class TaskUpdater
     }
 
     public function __invoke(
-        ?int $taskId,
-        string $name,
-        ?string $detail,
-        ?string $taskCreatedAt,
-        ?string $taskStoppedAt
+        Task $task
     )
     {
-        //TODO definir si create or update
-        $task = TaskDetail::create($taskId, $name, $detail, $taskCreatedAt, $taskStoppedAt);
+        $task = TaskDetail::create($task);
         $this->repository->save($task);
     }
 }

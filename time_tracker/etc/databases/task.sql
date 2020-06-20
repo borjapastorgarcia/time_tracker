@@ -11,6 +11,7 @@ CREATE TABLE time_tracker.task_detail (
 	status BOOL NOT NULL,
 	started_at DATETIME NOT NULL,
 	stopped_at DATETIME NULL,
+	elapsed_time DATETIME NULL,
 	task varchar(36) NOT NULL,
     UNIQUE INDEX idx (id), PRIMARY KEY(id),
 	CONSTRAINT task_detail_FK FOREIGN KEY (task) REFERENCES time_tracker.task(id)

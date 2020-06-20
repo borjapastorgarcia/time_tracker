@@ -2,27 +2,44 @@
 
 {% block body %}
     <div class="row">
-{#                {{ dump(tasks) }}#}
-        {% if tasks is defined and tasks is not null %}
+        <div class="col-md-8">
+            {% if tasks is defined and tasks is not null %}
             <table class="table table-bordered table-striped">
                 <thead>
                 <tr>
                     <td>Task</td>
-{#                    <td>Day</td>#}
-{#                    <td>Total Time</td>#}
+                    <td>Day</td>
+                    <td>Total Time</td>
                 </tr>
                 </thead>
                 <tbody>
-
+                {#                {{ dump(tasks|first) }}#}
                 {% for task in tasks %}
                     <tr>
-                        <td>{{task.name}}</td>
-                        <td></td>
-                        <td>#total</td>
+                        <td>{{ task.name }}</td>
+                        <td>
+                            {% set taskDetails = task.taskDetails %}
+                            {% for taskDetail in taskDetails %}
+                                {{ taskDetail.startedAt|date("m/d/Y H:i:s") }} - {{ taskDetail.stoppedAt |date("m/d/Y H:i:s") }}
+                                <br>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for taskDetail in taskDetails %}
+                                {% set elapsedTime = taskDetail.elapsedTime %}
+                                {% if elapsedTime is defined and elapsedTime is not null %}
+                                    {{ elapsedTime }}
+                                {% else %}
+                                    Task running...
+                                {% endif %}
+                                <br>
+                            {% endfor %}
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
+        </div>
         {% endif %}
     </div>
 {% endblock %}

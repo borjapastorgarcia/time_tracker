@@ -7,6 +7,7 @@ use App\Application\Create\TaskDetailCreator;
 use App\Application\Find\ActiveTaskDetailFinder;
 use App\Application\Find\SameNameTaskFinder;
 use App\Application\Stop\TaskDetailStopper;
+use App\Domain\Task;
 use App\Domain\TaskDetail;
 use App\Form\TaskType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,8 +34,7 @@ class CreateTaskController extends AbstractController
             $task = $sameNameTaskFinder->__invoke($form->get('name')->getData());
 
             $task ? $this->createTaskDetail(
-                $form->get('name')->getData(),
-                $task->id(),
+                $task,
                 $taskDetailCreator,
                 $taskDetailStopper
             ) : $this->createTask(
@@ -47,25 +47,25 @@ class CreateTaskController extends AbstractController
 
             return $this->redirectToRoute("create");
         }
-
+        $activeTaskDetail = $taskDetailFinder->__invoke();
         return $this->render(
             'Task/create.html.twig',
             [
                 'form' => $form->createView(),
-                'activeTask' => $taskDetailFinder->__invoke()
+                'activeTask' => $activeTaskDetail,
+                'elapsedTime' => $activeTaskDetail ? $activeTaskDetail->generateElapsedTime() : null
             ]
         );
     }
 
     public function createTaskDetail(
-        string $name,
-        string $id,
+        Task $task,
         TaskDetailCreator $taskDetailCreator,
         TaskDetailStopper $taskDetailStopper
     )
     {
         $taskDetailStopper->__invoke();
-        $taskDetailCreator->__invoke($name, $id);
+        $taskDetailCreator->__invoke($task);
     }
 
     public function createTask(
@@ -79,6 +79,6 @@ class CreateTaskController extends AbstractController
         $taskCreator->__invoke($name);
         $task = $sameNameTaskFinder->__invoke($name);
         $taskDetailStopper->__invoke();
-        $taskDetailCreator->__invoke($name, $task->id());
+        $taskDetailCreator->__invoke($task);
     }
 }
