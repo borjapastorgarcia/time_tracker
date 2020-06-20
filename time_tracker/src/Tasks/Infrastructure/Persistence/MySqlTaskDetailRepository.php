@@ -18,10 +18,6 @@ final class MySqlTaskDetailRepository extends DoctrineRepository implements Task
         $this->persist($taskDetail);
     }
 
-    public function update(TaskDetail $taskDetail)
-    {
-        //TODO implement update¿?
-    }
 
     public function findActive(): ?TaskDetail
     {

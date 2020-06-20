@@ -4,22 +4,19 @@
 namespace App\Controller\Task;
 
 
-use App\Tasks\Infrastructure\Persistence\MySqlTaskRepository;
+use App\Application\Find\AllTasksFinder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ListAllTasksController extends AbstractController
 {
-    private $mySqlTaskRepository;
 
     public function index(
-        MySqlTaskRepository $mySqlTaskRepository
-    ){
+        AllTasksFinder $allTasksFinder
+    )
+    {
 
-        //TODO REFACTOR TO SEARCHER
-        $this->mySqlTaskRepository = $mySqlTaskRepository;
-
-        $tasks = $this->mySqlTaskRepository->searchAll();
-
+        $tasks = $allTasksFinder->__invoke();
+        
         return $this->render(
             'Task/tasks.html.twig',
             [

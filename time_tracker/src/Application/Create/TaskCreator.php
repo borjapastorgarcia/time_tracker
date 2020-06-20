@@ -22,6 +22,7 @@ class TaskCreator
         string $name
     )
     {
+
         $task = Task::create($name);
         $this->repository->save($task);
     }
