@@ -15,4 +15,4 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 
-../time_tracker_degustabox
+../*
