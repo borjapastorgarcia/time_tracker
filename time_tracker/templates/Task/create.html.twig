@@ -2,6 +2,10 @@
 
 {% block body %}
     <div class="row">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+    </div>
+    <div class="row">
         {% if activeTask is defined and activeTask is not null %}
             Current task: {{ activeTask.name }}
 
@@ -26,8 +30,6 @@
             </table>
         {% endif %}
     </div>
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
     <script>
         $(document).ready(function () {
             var start = $(this).find("#timer-start-date").html().toString();
