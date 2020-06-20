@@ -4,10 +4,13 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Domain\Task" table="task">
+    <entity name="App\Domain\TaskDetail" table="task_detail">
         <id name="id" type="string" column="id" length="36" />
         <field name="name" type="string" column="name" length="255" nullable="true"/>
-        <one-to-many field="taskDetails" target-entity="TaskDetail" mapped-by="task" />
+        <field name="status" type="boolean" column="status"/>
+        <field name="startedAt" type="datetime" column="started_at" length="255"/>
+        <field name="stoppedAt" type="datetime" column="stopped_at" length="255" nullable="true"/>
+        <many-to-one field="task" target-entity="Task" inversed-by="taskDetails" />
         <unique-constraints>
             <unique-constraint columns="id" name="idx" />
         </unique-constraints>

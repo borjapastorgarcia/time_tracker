@@ -4,7 +4,7 @@
 namespace App\Application\Update;
 
 
-use App\Domain\Task;
+use App\Domain\TaskDetail;
 use App\Domain\TaskRepository;
 
 class TaskUpdater
@@ -27,7 +27,7 @@ class TaskUpdater
     )
     {
         //TODO definir si create or update
-        $task = Task::create($taskId, $name, $detail, $taskCreatedAt, $taskStoppedAt);
+        $task = TaskDetail::create($taskId, $name, $detail, $taskCreatedAt, $taskStoppedAt);
         $this->repository->save($task);
     }
 }

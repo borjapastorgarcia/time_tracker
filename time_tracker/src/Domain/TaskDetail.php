@@ -5,37 +5,46 @@ declare(strict_types=1);
 namespace App\Domain;
 
 use Ramsey\Uuid\Uuid as RamseyUuid;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 
 
-final class Task
+final class TaskDetail
 {
     private $id;
     private $name;
-    private $taskDetails;
+    private $status;
+    private $startedAt;
+    private $stoppedAt;
 
     public function __construct(
         ?string $id,
         string $name,
-        Collection $taskDetails
+        bool $status,
+        \DateTime $startedAt,
+        \DateTime $stoppedAt
     )
     {
         $this->id = $id;
         $this->name = $name;
-        $this->taskDetails = $taskDetails;
+        $this->status = $status;
+        $this->startedAt = $startedAt;
+        $this->stoppedAt = $stoppedAt;
     }
 
     public static function create(
         ?string $id,
-        string $name
+        string $name,
+        bool $status,
+        \DateTime $startedAt,
+        \DateTime $stoppedAt
     ): self
     {
 
         $task = new self(
             RamseyUuid::uuid4()->toString(),
             $name,
-            new ArrayCollection()
+            $status,
+            $startedAt,
+            $stoppedAt
         );
         return $task;
     }

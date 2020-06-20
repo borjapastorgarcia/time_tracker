@@ -1,13 +1,13 @@
 <?php
 
 
-namespace App\Application\Create;
+namespace App\Application\Stop;
 
 
 use App\Domain\Task;
 use App\Domain\TaskRepository;
 
-class TaskCreator
+class TaskStopper
 {
     private $repository;
 
@@ -23,7 +23,7 @@ class TaskCreator
         string $name
     )
     {
-        //TODO define if create a task or taskDetail
+        //TODO stop taskDetail
         $task = Task::create($taskId, $name);
         $this->repository->save($task);
     }

@@ -4,10 +4,10 @@
 namespace App\Application\Create;
 
 
-use App\Domain\Task;
+use App\Domain\TaskDetail;
 use App\Domain\TaskRepository;
 
-class TaskCreator
+class TaskDetailCreator
 {
     private $repository;
 
@@ -23,8 +23,8 @@ class TaskCreator
         string $name
     )
     {
-        //TODO define if create a task or taskDetail
-        $task = Task::create($taskId, $name);
+
+        $task = TaskDetail::create($taskId, $name);
         $this->repository->save($task);
     }
 
