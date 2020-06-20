@@ -34,4 +34,9 @@ final class MySqlTaskRepository extends DoctrineRepository implements TaskReposi
             'name' => $taskName
         ]);
     }
+
+    public function findAll()
+    {
+        return $this->repository(Task::class)->findAll();
+    }
 }

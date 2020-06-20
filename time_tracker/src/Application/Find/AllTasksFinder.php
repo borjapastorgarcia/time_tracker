@@ -1,14 +1,14 @@
 <?php
 
 
-namespace App\Application\Update;
+namespace App\Application\Find;
 
 
 use App\Domain\Task;
-use App\Domain\TaskDetail;
 use App\Domain\TaskRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 
-class TaskUpdater
+class AllTasksFinder
 {
     private $repository;
 
@@ -19,11 +19,9 @@ class TaskUpdater
         $this->repository = $repository;
     }
 
-    public function __invoke(
-        Task $task
-    )
+    public function __invoke
+    (): ?array
     {
-        $task = TaskDetail::create($task);
-        $this->repository->save($task);
+        return $this->repository->findAll();
     }
 }

@@ -12,4 +12,6 @@ interface TaskRepository
 
     public function findSameName(string $taskName);
 
+    public function findAll();
+
 }
