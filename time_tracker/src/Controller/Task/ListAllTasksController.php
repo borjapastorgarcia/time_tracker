@@ -16,11 +16,12 @@ class ListAllTasksController extends AbstractController
     {
 
         $tasks = $allTasksFinder->__invoke();
-        
+
         return $this->render(
             'Task/tasks.html.twig',
             [
-                'tasks' => $tasks
+                'tasks' => $tasks,
+                'activeItem' => 'list',
             ]
         );
 

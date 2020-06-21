@@ -1,15 +1,26 @@
-<div class="nav_menu">
-    <nav>
-        <div class="nav toggle">
-            <a id="menu_toggle"><i class="fas fa-bars"></i></a>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Time Tracker</a>
         </div>
-        <ul class="nav navbar-nav navbar-right">
-            <li role="presentation" class="dropdown"></li>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
 
-            <li class>
-
-
-            </li>
-        </ul>
-    </nav>
-</div>
+                <li class="{{ activeItem == 'create' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ path('create') }}"><i class="fas fa-home"></i> Home<span
+                                class="sr-only"></span></a>
+                </li>
+                <li class="{{ activeItem == 'list' ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ path('list') }}"><i class="fas fa-home"></i> Task List<span class="sr-only"></span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
