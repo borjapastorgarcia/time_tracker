@@ -17,6 +17,7 @@ class TaskType extends AbstractType
             ->add('name', TextType::class)
             ->add('submit', SubmitType::class,[
                 'label' => 'Start !',
+                'attr' => ['class' => 'btn btn-default'],
             ]);
     }
 
