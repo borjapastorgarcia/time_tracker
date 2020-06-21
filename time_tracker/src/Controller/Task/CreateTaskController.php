@@ -52,6 +52,7 @@ class CreateTaskController extends AbstractController
             'Task/create.html.twig',
             [
                 'form' => $form->createView(),
+                'activeItem' => 'create',
                 'activeTask' => $activeTaskDetail,
                 'elapsedTime' => $activeTaskDetail ? $activeTaskDetail->generateElapsedTime() : null
             ]
