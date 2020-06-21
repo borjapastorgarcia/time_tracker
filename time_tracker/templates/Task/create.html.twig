@@ -37,8 +37,8 @@
                             <td>{{ activeTask.startedAt | date("d/m/Y H:i:s") }}</td>
                             <td><span id="timer-start-date">{{ elapsedTime }}</span>
                             </td>
-                            <td><a href="{{ path('stop', { 'taskDetailId': activeTask.id }) }}"
-                                   class="btn btn-danger">Stop</a>
+                            <td><button data-stop="{{ path('stop', { 'taskDetailId': activeTask.id }) }}" onclick="confirmStop(this)"
+                                   class="btn btn-danger">Stop</button>
                             </td>
                         </tr>
                         </tbody>
@@ -84,4 +84,27 @@
 
         });
     </script>
+{% endblock %}
+{%  block javascripts %}
+    {% if activeTask is defined %}
+        <script>
+            function confirmStop(element) {
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You'll stop current task",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#FF444F',
+                    cancelButtonColor: '#CACACA',
+                    confirmButtonText: 'Yes, stop it!'
+                }).then((result) => {
+                    if (result.value) {
+                        window.location.replace($(element).attr('data-stop'));
+                    }
+                });
+
+            }
+        </script>
+    {% endif %}
 {% endblock %}
