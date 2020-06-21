@@ -9,6 +9,7 @@
                 <tr>
                     <td>Task</td>
                     <td>Day</td>
+                    <td>Partial Time</td>
                     <td>Total Time</td>
                 </tr>
                 </thead>
@@ -25,15 +26,29 @@
                             {% endfor %}
                         </td>
                         <td>
+                            {% set totalElapsedTime = "00:00:00"|date('H:i:s') %}
+{#                            <strong><h3>{{ totalElapsedTime }}</strong>#}
                             {% for taskDetail in taskDetails %}
                                 {% set elapsedTime = taskDetail.elapsedTime %}
                                 {% if elapsedTime is defined and elapsedTime is not null %}
                                     {{ elapsedTime }}
+                                    {% set dateFormat = 'H:i:s' %}
+                                    {% set elapsedTime = elapsedTime|date(dateFormat) %}
+
+                                    {% set totalElapsedTime =  totalElapsedTime|date_modify(
+                                        '+'~elapsedTime|date('H')~'hours +'
+                                        ~elapsedTime|date('i')~'minutes +'
+                                        ~elapsedTime|date('s')~'seconds'
+                                        )|date(dateFormat) %}
+
                                 {% else %}
                                     Task running...
                                 {% endif %}
                                 <br>
                             {% endfor %}
+                        </td>
+                        <td>
+                            <h3>{{ totalElapsedTime }}</h3>
                         </td>
                     </tr>
                 {% endfor %}

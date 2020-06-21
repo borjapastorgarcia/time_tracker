@@ -1,45 +1,50 @@
 {% extends 'layout/_main.html.twig' %}
 
 {% block body %}
-<div class="row">
-    <div class="form-group">
+    <div class="container">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-12">
+                <h1 class="text-center">Write a task to start tracking time!</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
                 {{ form_start(form) }}
                 {{ form_row(form.name) }}
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 {{ form_row(form.submit) }}
                 {{ form_end(form) }}
             </div>
             <div class="col-md-6">
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-        {% if activeTask is defined and activeTask is not null %}
-            <table class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                    <td>Task</td>
-                    <td>Started At</td>
-                    <td>Timer</td>
-                    <td>Actions</td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>{{ activeTask.name }}</td>
-                    <td>{{ activeTask.startedAt | date("d/m/Y H:i:s") }}</td>
-                    <td><span id="timer-start-date">{{ elapsedTime }}</span>
-                    </td>
-                    <td><a href="{{ path('stop', { 'taskDetailId': activeTask.id }) }}" class="btn btn-default">Stop</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        {% endif %}
+        <div class="row">
+            <div class="col-md-12">
+                {% if activeTask is defined and activeTask is not null %}
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <td>Task</td>
+                            <td>Started At</td>
+                            <td>Timer</td>
+                            <td>Actions</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{ activeTask.name }}</td>
+                            <td>{{ activeTask.startedAt | date("d/m/Y H:i:s") }}</td>
+                            <td><span id="timer-start-date">{{ elapsedTime }}</span>
+                            </td>
+                            <td><a href="{{ path('stop', { 'taskDetailId': activeTask.id }) }}"
+                                   class="btn btn-danger">Stop</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
         </div>
     </div>
     <script>
@@ -79,4 +84,4 @@
 
         });
     </script>
-    {% endblock %}
+{% endblock %}
