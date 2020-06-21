@@ -5,3 +5,11 @@
 /*.container.body{*/
 /*    background-color: #dfdfdf;*/
 /*}*/
+
+h1{
+    font-size: 32px;
+}
+
+.row{
+    margin-bottom: 20px;
+}
