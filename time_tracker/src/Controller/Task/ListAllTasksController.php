@@ -15,7 +15,7 @@ class ListAllTasksController extends AbstractController
     )
     {
 
-        $tasks = $allTasksFinder->__invoke();
+        $tasks = $allTasksFinder();
 
         return $this->render(
             'Task/tasks.html.twig',

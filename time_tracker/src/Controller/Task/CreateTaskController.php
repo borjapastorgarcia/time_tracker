@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CreateTaskController extends AbstractController
 {
+    public $activeTaskDetail;
 
     public function index(
         Request $request,
@@ -36,18 +37,22 @@ class CreateTaskController extends AbstractController
             $task ? $this->createTaskDetail(
                 $task,
                 $taskDetailCreator,
-                $taskDetailStopper
+                $taskDetailStopper,
+                $taskDetailFinder
             ) : $this->createTask(
                 $form->get('name')->getData(),
                 $taskCreator,
                 $taskDetailCreator,
                 $sameNameTaskFinder,
-                $taskDetailStopper
+                $taskDetailStopper,
+                $taskDetailFinder
             );
 
             return $this->redirectToRoute("create");
         }
-        $activeTaskDetail = $taskDetailFinder->__invoke();
+
+        $activeTaskDetail = $taskDetailFinder();
+
         return $this->render(
             'Task/create.html.twig',
             [
@@ -62,11 +67,13 @@ class CreateTaskController extends AbstractController
     public function createTaskDetail(
         Task $task,
         TaskDetailCreator $taskDetailCreator,
-        TaskDetailStopper $taskDetailStopper
+        TaskDetailStopper $taskDetailStopper,
+        ActiveTaskDetailFinder $taskDetailFinder
     )
     {
-        $taskDetailStopper->__invoke();
-        $taskDetailCreator->__invoke($task);
+        $activeTaskDetail = $taskDetailFinder();
+        $taskDetailStopper($activeTaskDetail);
+        $taskDetailCreator($task);
     }
 
     public function createTask(
@@ -74,12 +81,14 @@ class CreateTaskController extends AbstractController
         TaskCreator $taskCreator,
         TaskDetailCreator $taskDetailCreator,
         SameNameTaskFinder $sameNameTaskFinder,
-        TaskDetailStopper $taskDetailStopper
+        TaskDetailStopper $taskDetailStopper,
+        ActiveTaskDetailFinder $taskDetailFinder
     )
     {
-        $taskCreator->__invoke($name);
-        $task = $sameNameTaskFinder->__invoke($name);
-        $taskDetailStopper->__invoke();
-        $taskDetailCreator->__invoke($task);
+        $activeTaskDetail = $taskDetailFinder();
+        $taskCreator($name);
+        $task = $sameNameTaskFinder($name);
+        $taskDetailStopper($activeTaskDetail);
+        $taskDetailCreator($task);
     }
 }

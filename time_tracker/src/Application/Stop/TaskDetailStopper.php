@@ -18,13 +18,13 @@ class TaskDetailStopper
     )
     {
         $this->repository = $repository;
-        $this->taskDetailFinder = new ActiveTaskDetailFinder($repository);
+
     }
 
-    public function __invoke()
+    public function __invoke(
+        ?TaskDetail $taskDetail
+    )
     {
-
-        $taskDetail = $this->taskDetailFinder->__invoke();
 
         if ($taskDetail) {
             $taskDetail->stop();
