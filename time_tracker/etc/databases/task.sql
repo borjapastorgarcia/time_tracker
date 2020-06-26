@@ -10,7 +10,7 @@ CREATE TABLE time_tracker.task_detail (
 	status BOOL NOT NULL,
 	started_at DATETIME NOT NULL,
 	stopped_at DATETIME NULL,
-	elapsed_time DATETIME NULL,
+	elapsed_time varchar(8) NULL,
 	task_id varchar(36) NOT NULL
 )
 ENGINE=InnoDB
