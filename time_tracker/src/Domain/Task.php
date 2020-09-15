@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Domain;
 
-use Ramsey\Uuid\Uuid as RamseyUuid;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
@@ -15,26 +14,11 @@ class Task
     private $name;
     private $taskDetails;
 
-    public function __construct(
-        string $id,
-        string $name
-    )
+    public function __construct(string $id, TaskName $name)
     {
         $this->id = $id;
         $this->name = $name;
         $this->taskDetails = new ArrayCollection();
-    }
-
-    public static function create(
-        string $name
-    ): self
-    {
-
-        $task = new self(
-            RamseyUuid::uuid4()->toString(),
-            $name
-        );
-        return $task;
     }
 
     public function id(): string
@@ -42,27 +26,20 @@ class Task
         return $this->id;
     }
 
-    public function name(): string
+    public function name(): TaskName
     {
         return $this->name;
     }
 
-    /**
-     * @return Collection
-     */
-    public function getTaskDetails(): Collection
+    public function taskDetails(): Collection
     {
         return $this->taskDetails;
     }
 
-    /**
-     * @param ArrayCollection $taskDetails
-     */
     public function setTaskDetails(ArrayCollection $taskDetails): void
     {
         $this->taskDetails = $taskDetails;
     }
-
 
 
 }
