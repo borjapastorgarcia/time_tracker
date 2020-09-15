@@ -2,22 +2,37 @@
 
 namespace App\Controller\Task;
 
+use App\Application\Create\CreateTaskRequest;
 use App\Application\Create\TaskCreator;
 use App\Application\Create\TaskDetailCreator;
 use App\Application\Find\ActiveTaskDetailFinder;
 use App\Application\Find\SameNameTaskFinder;
 use App\Application\Stop\TaskDetailStopper;
 use App\Domain\Task;
-use App\Domain\TaskDetail;
-use App\Form\TaskType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-class CreateTaskController extends AbstractController
+final class CreateTaskPostController extends AbstractController
 {
-    public $activeTaskDetail;
+    private $taskCreator;
 
-    public function index(
+    public function __construct(TaskCreator $taskCreator)
+    {
+
+        $this->taskCreator = $taskCreator;
+    }
+
+    public function __invoke(Request $request)
+    {
+        $name = $request->get('name');
+
+        $this->taskCreator->__invoke(new CreateTaskRequest($name));
+
+        return new Response("Task created-> " . $name, Response::HTTP_CREATED);
+    }
+
+    /*public function index(
         Request $request,
         ActiveTaskDetailFinder $taskDetailFinder,
         SameNameTaskFinder $sameNameTaskFinder,
@@ -62,7 +77,7 @@ class CreateTaskController extends AbstractController
                 'elapsedTime' => $activeTaskDetail ? $activeTaskDetail->generateElapsedTime() : null
             ]
         );
-    }
+    }*/
 
     public function createTaskDetail(
         Task $task,
