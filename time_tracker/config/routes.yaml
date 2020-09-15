@@ -1,9 +1,10 @@
-create:
-    path: /
-    controller: App\Controller\Task\CreateTaskController::index
+task_post:
+    path: /task/{name}
+    controller: App\Controller\Task\CreateTaskPostController
+    methods: [POST]
 
-update:
-    path: /
+task_put:
+    path: /task/update
     controller: App\Controller\Task\UpdateTaskController::index
 
 stop:
